@@ -1,7 +1,6 @@
-# Home Assistant Blueprints
+# Home Assistant Blueprints (forked from nnmalex for Philips Hue Dial Tap Switch)
 
 Blueprints for Home Assistant
 
-### 1. [Philips Tap Dial Switch](https://github.com/nnmalex/ha-blueprints/blob/main/philips_tap_dial_switch.yaml)
-Control brightness of one light with the dial on a Philips Hue Tap Switch. Use the four buttons to assign your own actions.
-https://community.home-assistant.io/t/zha-philips-hue-dial-switch-with-custom-button-actions/454961
+### 1. [Philips Tap Dial Switch](https://github.com/kulve/ha-blueprints-nnmalex/blob/main/philips_tap_dial_switch.yaml)
+Use the four buttons to assign your own actions. The dial is ignored.
