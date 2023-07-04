@@ -1,8 +1,7 @@
 blueprint:
-  name: Philips Tap Dial Switch
-  description: 'Control brightness of one light with the dial on a Philips Hue Tap Switch. Use the four buttons
-    to assign your own actions.'
-  source_url: https://github.com/nnmalex/ha-blueprints/blob/main/philips_tap_dial_switch.yaml
+  name: Philips Tap Dial Switch for Scene control
+  description: 'Use the four buttons to assign your own actions. The dial is ignored'
+  source_url: https://github.com/kulve/ha-blueprints-nnmalex/blob/main/philips_tap_dial_switch.yaml
   domain: automation
   input:
     remote:
@@ -13,13 +12,6 @@ blueprint:
           manufacturer: Signify Netherlands B.V.
           model: RDM002
           multiple: false
-    dimmable_light:
-      name: Dimmable Light
-      description: The light to be controlled with the dial
-      selector:
-        target:
-          entity:
-            domain: light
     button_1_press:
       name: Button 1 Press
       description: Action to run in a single press of button 1
@@ -51,8 +43,6 @@ max_exceeded: silent
 variables:
   event: '{{ trigger.event.data.command }}'
   scene: "{{ trigger.event.data.args[1] }}"
-  step_mode: "{{ trigger.event.data.params.step_mode }}"
-  step_size: "{{ trigger.event.data.params.step_size }}"
 
 trigger:
 - platform: event
@@ -61,25 +51,6 @@ trigger:
     device_id: !input remote
 action:
   - choose:
-    # Dial rotatation
-    - conditions:
-      - '{{ event == "step_with_on_off" }}'
-      - '{{ step_mode == "StepMode.Up" }}'
-      sequence:
-        - service: light.turn_on
-          target: !input dimmable_light
-          data:
-            brightness_step_pct: '{{ step_size }}'
-            transition: 1
-    - conditions:
-      - '{{ event == "step_with_on_off" }}'
-      - '{{ step_mode == "StepMode.Down" }}'
-      sequence:
-        - service: light.turn_on
-          target: !input dimmable_light
-          data:
-            brightness_step_pct: '{{ -step_size }}'
-            transition: 1
     # Buttons
     - conditions:
       - '{{ event == "recall" }}'
